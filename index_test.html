@@ -1,0 +1,430 @@
+<!DOCTYPE html>
+<html lang="en" class="dark">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>SigLab | Widget Showcase</title>
+    <script src="https://cdn.tailwindcss.com"></script>
+    <link href="https://fonts.googleapis.com/css2?family=IBM+Plex+Mono:wght@400;600&family=IBM+Plex+Sans+JP:wght@400;700&family=IBM+Plex+Sans+SC:wght@400;700&family=IBM+Plex+Sans:ital,wght@0,400;0,700;1,400&display=swap" rel="stylesheet">
+    <link rel="stylesheet" href="assets/css/siglab.css">
+</head>
+<body class="dark min-h-screen pb-20">
+
+    <!-- ==================== NAVBAR ==================== -->
+    <nav class="p-4 border-b flex justify-between items-center sticky top-0 z-50" style="border-color: var(--border); background-color: var(--bg);">
+        <div class="flex items-center gap-6">
+            <span class="text-2xl font-bold tracking-tighter">Sig<span class="text-brand">Lab</span></span>
+            <div class="flex p-1 rounded-lg" style="background: var(--hover-bg);">
+                <button onclick="SigLabApp.setLang('en')" class="px-3 py-1 text-[10px] font-bold hover:text-brand transition-colors">EN</button>
+                <button onclick="SigLabApp.setLang('zh')" class="px-3 py-1 text-[10px] font-bold hover:text-brand transition-colors">中</button>
+                <button onclick="SigLabApp.setLang('es')" class="px-3 py-1 text-[10px] font-bold hover:text-brand transition-colors">ES</button>
+                <button onclick="SigLabApp.setLang('ja')" class="px-3 py-1 text-[10px] font-bold hover:text-brand transition-colors">日</button>
+            </div>
+        </div>
+        <div class="flex items-center gap-3">
+            <button onclick="SigLabApp.toggleTheme()" class="btn btn-ghost btn-sm glass">
+                <i data-lucide="sun-moon" class="w-4 h-4"></i>
+                <span data-i18n="nav.theme">Theme</span>
+            </button>
+            <button class="btn btn-primary btn-lg" data-i18n="nav.start">Get Started</button>
+        </div>
+    </nav>
+
+    <!-- ==================== TICKER BAR ==================== -->
+    <div class="ticker-bar">
+        <div class="ticker-content" id="ticker-content">
+            <!-- Populated by JS (doubled for seamless loop) -->
+        </div>
+    </div>
+
+    <main class="max-w-7xl mx-auto px-6 lg:px-10">
+
+        <!-- ==================== HERO ==================== -->
+        <header class="text-center py-16">
+            <h1 class="text-5xl lg:text-7xl font-bold mb-6 tracking-tight" data-i18n="hero.title">Decode the Market.<br><span class="text-brand">Snap your Signals.</span></h1>
+            <p class="text-lg max-w-2xl mx-auto" style="color: var(--text-sub);" data-i18n="hero.sub">The visual laboratory for serious strategy construction.</p>
+        </header>
+
+        <!-- ==================== SECTION 1: MARKET DATA ==================== -->
+        <section id="s-market" class="mb-16">
+            <h2 class="section-heading" data-i18n="section.market">Market Data</h2>
+            <p class="text-sm mb-8" style="color: var(--text-sub);" data-i18n="section.marketDesc">Real-time instruments and interactive charts</p>
+
+            <!-- Market Watch Cards -->
+            <div class="grid grid-cols-2 md:grid-cols-3 lg:grid-cols-6 gap-4 mb-8" id="market-cards">
+                <!-- Populated by JS -->
+            </div>
+
+            <!-- Candlestick Chart -->
+            <div class="glass card p-6">
+                <div class="flex justify-between items-center mb-4">
+                    <div class="flex items-center gap-3">
+                        <span class="num font-bold text-lg">BTC/USD</span>
+                        <span class="text-xs font-bold px-2 py-0.5 rounded-full" style="background: var(--brand-dim); color: var(--brand);">Daily</span>
+                    </div>
+                    <div class="flex gap-1">
+                        <button class="btn btn-ghost btn-sm num text-[10px]">M1</button>
+                        <button class="btn btn-ghost btn-sm num text-[10px]">M15</button>
+                        <button class="btn btn-ghost btn-sm num text-[10px]">H1</button>
+                        <button class="btn btn-sm num text-[10px]" style="background: var(--brand-dim); color: var(--brand);">D1</button>
+                        <button class="btn btn-ghost btn-sm num text-[10px]">W1</button>
+                    </div>
+                </div>
+                <div id="candlestick-chart" style="height: 400px;"></div>
+            </div>
+        </section>
+
+        <!-- ==================== SECTION 2: BACKTEST REPORT ==================== -->
+        <section id="s-backtest" class="mb-16">
+            <h2 class="section-heading" data-i18n="section.backtest">Backtest Report</h2>
+            <p class="text-sm mb-8" style="color: var(--text-sub);" data-i18n="section.backtestDesc">Comprehensive strategy performance analysis</p>
+
+            <!-- Equity Curve -->
+            <div class="glass card p-6 mb-6">
+                <div class="flex justify-between items-center mb-4">
+                    <h3 class="text-xs font-bold uppercase opacity-50" data-i18n="bt.equity">Equity Curve</h3>
+                    <div class="flex items-center gap-4 text-[10px]">
+                        <span class="flex items-center gap-1"><span class="w-3 h-0.5 inline-block rounded" style="background: var(--brand);"></span> Strategy</span>
+                        <span class="flex items-center gap-1"><span class="w-3 h-0.5 inline-block rounded opacity-30" style="background: var(--text);"></span> Buy &amp; Hold</span>
+                    </div>
+                </div>
+                <div id="equity-chart" style="height: 300px;"></div>
+            </div>
+
+            <!-- Key Metrics -->
+            <div class="grid grid-cols-2 md:grid-cols-4 lg:grid-cols-8 gap-3 mb-6" id="metrics-grid">
+                <!-- Populated by JS -->
+            </div>
+
+            <!-- Drawdown Chart -->
+            <div class="glass card p-6 mb-6">
+                <h3 class="text-xs font-bold uppercase opacity-50 mb-4" data-i18n="bt.drawdown">Drawdown Analysis</h3>
+                <div id="drawdown-chart" style="height: 180px;"></div>
+            </div>
+
+            <!-- Monthly Returns Heatmap -->
+            <div class="glass card p-6 mb-6">
+                <h3 class="text-xs font-bold uppercase opacity-50 mb-4" data-i18n="bt.heatmap">Monthly Returns</h3>
+                <div class="overflow-x-auto">
+                    <div id="heatmap-grid" class="min-w-[640px]">
+                        <!-- Populated by JS -->
+                    </div>
+                </div>
+            </div>
+
+            <!-- Trade List -->
+            <div class="glass card p-6">
+                <h3 class="text-xs font-bold uppercase opacity-50 mb-4" data-i18n="bt.trades">Trade List</h3>
+                <div class="overflow-x-auto">
+                    <table class="data-table">
+                        <thead>
+                            <tr>
+                                <th data-i18n="bt.date">Date</th>
+                                <th data-i18n="bt.direction">Direction</th>
+                                <th data-i18n="bt.symbol">Symbol</th>
+                                <th class="num" data-i18n="bt.entry">Entry</th>
+                                <th class="num" data-i18n="bt.exit">Exit</th>
+                                <th class="num" data-i18n="bt.pnl">P&L</th>
+                                <th data-i18n="bt.duration">Duration</th>
+                            </tr>
+                        </thead>
+                        <tbody id="trade-list-body">
+                            <!-- Populated by JS -->
+                        </tbody>
+                    </table>
+                </div>
+            </div>
+        </section>
+
+        <!-- ==================== SECTION 3: STRATEGY BUILDER ==================== -->
+        <section id="s-builder" class="mb-16">
+            <h2 class="section-heading" data-i18n="section.builder">Strategy Builder</h2>
+            <p class="text-sm mb-8" style="color: var(--text-sub);" data-i18n="section.builderDesc">Visual flow editor and backtest configuration</p>
+
+            <div class="grid grid-cols-1 lg:grid-cols-12 gap-6">
+                <!-- Strategy Flow Canvas -->
+                <div class="lg:col-span-7 glass card p-8">
+                    <div class="flow-canvas flex flex-wrap lg:flex-nowrap items-center justify-center gap-4 lg:gap-0">
+                        <!-- Node 1: Data Source -->
+                        <div class="flow-node flow-node-data">
+                            <div class="flow-node-header"><i data-lucide="database" class="w-3.5 h-3.5"></i><span data-i18n="sb.dataSource">Data Source</span></div>
+                            <div class="flow-node-body">BTC/USD · H1</div>
+                        </div>
+                        <!-- Arrow -->
+                        <svg class="hidden lg:block w-12 h-8 flex-shrink-0" viewBox="0 0 48 32"><path d="M0 16 H36 M30 8 L40 16 L30 24" class="flow-line"/></svg>
+                        <!-- Node 2: Indicator -->
+                        <div class="flow-node flow-node-indicator">
+                            <div class="flow-node-header"><i data-lucide="activity" class="w-3.5 h-3.5"></i><span data-i18n="sb.indicator">Indicator</span></div>
+                            <div class="flow-node-body">EMA 20 / 50</div>
+                        </div>
+                        <!-- Arrow -->
+                        <svg class="hidden lg:block w-12 h-8 flex-shrink-0" viewBox="0 0 48 32"><path d="M0 16 H36 M30 8 L40 16 L30 24" class="flow-line"/></svg>
+                        <!-- Node 3: Condition -->
+                        <div class="flow-node flow-node-condition">
+                            <div class="flow-node-header"><i data-lucide="git-branch" class="w-3.5 h-3.5"></i><span data-i18n="sb.condition">Condition</span></div>
+                            <div class="flow-node-body">Cross Up ↑</div>
+                        </div>
+                        <!-- Arrow -->
+                        <svg class="hidden lg:block w-12 h-8 flex-shrink-0" viewBox="0 0 48 32"><path d="M0 16 H36 M30 8 L40 16 L30 24" class="flow-line"/></svg>
+                        <!-- Node 4: Action -->
+                        <div class="flow-node flow-node-action">
+                            <div class="flow-node-header"><i data-lucide="arrow-up-circle" class="w-3.5 h-3.5"></i><span data-i18n="sb.action">Action</span></div>
+                            <div class="flow-node-body text-up">Buy Market</div>
+                        </div>
+                    </div>
+                </div>
+
+                <!-- Backtest Config Panel -->
+                <div class="lg:col-span-5 glass card p-6">
+                    <h3 class="text-sm font-bold mb-6 uppercase opacity-50" data-i18n="sb.configTitle">Backtest Configuration</h3>
+                    <div class="grid grid-cols-2 gap-4 mb-6">
+                        <div>
+                            <label class="text-[10px] font-bold uppercase opacity-40 block mb-2" data-i18n="sb.timeRange">Time Range</label>
+                            <select class="select w-full">
+                                <option>6 Months</option>
+                                <option>1 Year</option>
+                                <option selected>2 Years</option>
+                                <option>3 Years</option>
+                                <option>5 Years</option>
+                            </select>
+                        </div>
+                        <div>
+                            <label class="text-[10px] font-bold uppercase opacity-40 block mb-2" data-i18n="sb.capital">Initial Capital</label>
+                            <input type="text" class="input num" value="$100,000" />
+                        </div>
+                        <div>
+                            <label class="text-[10px] font-bold uppercase opacity-40 block mb-2" data-i18n="sb.leverage">Leverage</label>
+                            <select class="select w-full">
+                                <option selected>1x</option>
+                                <option>2x</option>
+                                <option>5x</option>
+                                <option>10x</option>
+                            </select>
+                        </div>
+                        <div>
+                            <label class="text-[10px] font-bold uppercase opacity-40 block mb-2" data-i18n="sb.feeModel">Fee Model</label>
+                            <select class="select w-full">
+                                <option>Fixed ($7)</option>
+                                <option selected>Percentage (0.1%)</option>
+                            </select>
+                        </div>
+                    </div>
+                    <!-- Granularity -->
+                    <div class="mb-6">
+                        <label class="text-[10px] font-bold uppercase opacity-40 block mb-2">Granularity</label>
+                        <div class="flex gap-1">
+                            <button class="btn btn-ghost btn-sm num text-[10px]">M1</button>
+                            <button class="btn btn-ghost btn-sm num text-[10px]">M5</button>
+                            <button class="btn btn-ghost btn-sm num text-[10px]">M15</button>
+                            <button class="btn btn-sm num text-[10px]" style="background: var(--brand-dim); color: var(--brand);">H1</button>
+                            <button class="btn btn-ghost btn-sm num text-[10px]">D1</button>
+                        </div>
+                    </div>
+                    <!-- Run Backtest -->
+                    <button class="btn btn-primary btn-lg w-full mb-4" id="btn-run-backtest" onclick="SigLabApp.runBacktestDemo()">
+                        <i data-lucide="play" class="w-4 h-4"></i>
+                        <span data-i18n="sb.runBacktest">Run Backtest</span>
+                    </button>
+                    <div class="flex items-center gap-3">
+                        <div class="progress-track flex-1">
+                            <div class="progress-fill" id="backtest-progress" style="width: 0%;"></div>
+                        </div>
+                        <span class="num text-xs font-bold opacity-60" id="backtest-progress-text">0%</span>
+                    </div>
+                </div>
+            </div>
+        </section>
+
+        <!-- ==================== SECTION 4: AI ASSISTANT ==================== -->
+        <section id="s-ai" class="mb-16">
+            <h2 class="section-heading" data-i18n="section.ai">AI Assistant</h2>
+            <p class="text-sm mb-8" style="color: var(--text-sub);" data-i18n="section.aiDesc">Natural language strategy generation</p>
+
+            <div class="glass card p-6 max-w-2xl mx-auto">
+                <!-- Chat Messages -->
+                <div class="space-y-4 mb-6" style="min-height: 240px;">
+                    <!-- User Message -->
+                    <div class="flex justify-end">
+                        <div class="ai-msg-user px-4 py-3 max-w-[85%]">
+                            <p class="text-sm" data-i18n="ai.userMsg">Build a dual EMA crossover strategy for BTC with 20 and 50 periods, 5% stop loss</p>
+                        </div>
+                    </div>
+                    <!-- AI Response -->
+                    <div class="flex justify-start">
+                        <div class="ai-msg-bot px-4 py-3 max-w-[85%]">
+                            <div class="flex items-center gap-2 mb-2">
+                                <i data-lucide="bot" class="w-4 h-4 text-brand"></i>
+                                <span class="text-[10px] font-bold text-brand uppercase">SigLab AI</span>
+                            </div>
+                            <pre class="text-sm whitespace-pre-wrap font-sans leading-relaxed" id="ai-response-text"></pre>
+                            <span class="typing-cursor" id="ai-cursor">|</span>
+                        </div>
+                    </div>
+                </div>
+                <!-- Input -->
+                <div class="flex gap-2">
+                    <input type="text" class="input flex-1" data-i18n-placeholder="ai.placeholder" placeholder="Ask AI to build a strategy...">
+                    <button class="btn btn-primary btn-lg"><i data-lucide="send" class="w-4 h-4"></i></button>
+                </div>
+            </div>
+        </section>
+
+        <!-- ==================== SECTION 5: COMMUNITY & GAMIFICATION ==================== -->
+        <section id="s-community" class="mb-16">
+            <h2 class="section-heading" data-i18n="section.community">Community & Gamification</h2>
+            <p class="text-sm mb-8" style="color: var(--text-sub);" data-i18n="section.communityDesc">Templates, badges, and strategy DNA</p>
+
+            <!-- Strategy Template Cards -->
+            <div class="grid grid-cols-1 md:grid-cols-3 gap-6 mb-12" id="template-cards">
+                <!-- Populated by JS -->
+            </div>
+
+            <!-- Badges -->
+            <h3 class="text-xs font-bold uppercase opacity-50 mb-6" data-i18n="section.badges">Achievement Badges</h3>
+            <div class="flex flex-wrap gap-6 justify-center mb-12" id="badge-container">
+                <!-- Populated by JS -->
+            </div>
+
+            <!-- Strategy DNA Radar -->
+            <h3 class="text-xs font-bold uppercase opacity-50 mb-6" data-i18n="section.dna">Strategy DNA</h3>
+            <div class="glass card p-6 max-w-sm mx-auto">
+                <canvas id="radar-chart" width="300" height="300" style="width: 100%; max-width: 300px; margin: 0 auto; display: block;"></canvas>
+            </div>
+        </section>
+
+        <!-- ==================== SECTION 6: UI PRIMITIVES ==================== -->
+        <section id="s-primitives" class="mb-16">
+            <h2 class="section-heading" data-i18n="section.primitives">UI Components</h2>
+            <p class="text-sm mb-8" style="color: var(--text-sub);" data-i18n="section.primitivesDesc">Design system primitives showcase</p>
+
+            <!-- Buttons -->
+            <div class="glass card p-6 mb-6">
+                <h3 class="text-xs font-bold uppercase opacity-50 mb-4" data-i18n="ui.buttons">Buttons</h3>
+                <div class="flex flex-wrap gap-3 mb-4">
+                    <button class="btn btn-primary btn-lg">Primary Large</button>
+                    <button class="btn btn-primary btn-sm">Primary Small</button>
+                    <button class="btn btn-secondary btn-lg">Secondary</button>
+                    <button class="btn btn-secondary btn-sm">Secondary Sm</button>
+                    <button class="btn btn-ghost btn-lg">Ghost</button>
+                    <button class="btn btn-ghost btn-sm">Ghost Sm</button>
+                    <button class="btn btn-danger btn-lg">Danger</button>
+                    <button class="btn btn-danger btn-sm">Danger Sm</button>
+                </div>
+                <div class="flex flex-wrap gap-3">
+                    <button class="btn btn-primary btn-lg"><i data-lucide="play" class="w-4 h-4"></i> Run Backtest</button>
+                    <button class="btn btn-secondary btn-lg"><i data-lucide="download" class="w-4 h-4"></i> Export</button>
+                    <button class="btn btn-ghost btn-lg"><i data-lucide="settings" class="w-4 h-4"></i> Settings</button>
+                </div>
+            </div>
+
+            <!-- Form Controls -->
+            <div class="glass card p-6 mb-6">
+                <h3 class="text-xs font-bold uppercase opacity-50 mb-4" data-i18n="ui.forms">Form Controls</h3>
+                <div class="grid grid-cols-1 md:grid-cols-2 lg:grid-cols-4 gap-6">
+                    <div>
+                        <label class="text-[10px] font-bold uppercase opacity-40 block mb-2">Text Input</label>
+                        <input type="text" class="input" placeholder="Enter value..." />
+                    </div>
+                    <div>
+                        <label class="text-[10px] font-bold uppercase opacity-40 block mb-2">Select</label>
+                        <select class="select w-full">
+                            <option>BTC/USD</option>
+                            <option>ETH/USD</option>
+                            <option>XAU/USD</option>
+                        </select>
+                    </div>
+                    <div>
+                        <label class="text-[10px] font-bold uppercase opacity-40 block mb-2">Toggle Switch</label>
+                        <div class="flex items-center gap-3 mt-1">
+                            <div class="toggle-track active" onclick="this.classList.toggle('active')">
+                                <div class="toggle-thumb"></div>
+                            </div>
+                            <span class="text-sm">Enabled</span>
+                        </div>
+                    </div>
+                    <div>
+                        <label class="text-[10px] font-bold uppercase opacity-40 block mb-2">Range Slider</label>
+                        <input type="range" class="range-slider mt-2" min="0" max="100" value="65" />
+                        <span class="num text-xs opacity-50 mt-1 block">65%</span>
+                    </div>
+                </div>
+            </div>
+
+            <!-- Toast Notifications -->
+            <div class="glass card p-6 mb-6">
+                <h3 class="text-xs font-bold uppercase opacity-50 mb-4" data-i18n="ui.toasts">Toast Notifications</h3>
+                <div class="flex flex-wrap gap-3">
+                    <button class="btn btn-sm" style="background: var(--up); color: #fff;" onclick="SigLabApp.showToast('success', 'Backtest completed successfully!')">
+                        <i data-lucide="check-circle" class="w-4 h-4"></i> Success
+                    </button>
+                    <button class="btn btn-sm" style="background: var(--down); color: #fff;" onclick="SigLabApp.showToast('error', 'Strategy compilation failed.')">
+                        <i data-lucide="x-circle" class="w-4 h-4"></i> Error
+                    </button>
+                    <button class="btn btn-sm" style="background: var(--warning); color: #fff;" onclick="SigLabApp.showToast('warning', 'Data gap detected in XAU/USD.')">
+                        <i data-lucide="alert-triangle" class="w-4 h-4"></i> Warning
+                    </button>
+                    <button class="btn btn-sm" style="background: var(--brand); color: #0F172A;" onclick="SigLabApp.showToast('info', 'New strategy template available.')">
+                        <i data-lucide="info" class="w-4 h-4"></i> Info
+                    </button>
+                </div>
+            </div>
+
+            <!-- Skeleton Loading -->
+            <div class="glass card p-6 mb-6">
+                <h3 class="text-xs font-bold uppercase opacity-50 mb-4" data-i18n="ui.skeletons">Skeleton Loading</h3>
+                <div class="grid grid-cols-1 md:grid-cols-3 gap-4">
+                    <!-- Card Skeleton -->
+                    <div class="p-4 rounded-2xl" style="background: var(--bg-surface); border: 1px solid var(--border);">
+                        <div class="skeleton h-4 w-24 mb-3"></div>
+                        <div class="skeleton h-8 w-32 mb-4"></div>
+                        <div class="skeleton h-16 w-full rounded-lg"></div>
+                    </div>
+                    <!-- Table Skeleton -->
+                    <div class="p-4 rounded-2xl" style="background: var(--bg-surface); border: 1px solid var(--border);">
+                        <div class="skeleton h-3 w-full mb-3"></div>
+                        <div class="skeleton h-3 w-full mb-3"></div>
+                        <div class="skeleton h-3 w-full mb-3"></div>
+                        <div class="skeleton h-3 w-3/4 mb-3"></div>
+                        <div class="skeleton h-3 w-full"></div>
+                    </div>
+                    <!-- Chart Skeleton -->
+                    <div class="p-4 rounded-2xl" style="background: var(--bg-surface); border: 1px solid var(--border);">
+                        <div class="skeleton h-4 w-20 mb-3"></div>
+                        <div class="skeleton h-24 w-full rounded-lg mb-2"></div>
+                        <div class="flex gap-1">
+                            <div class="skeleton h-2 flex-1"></div>
+                            <div class="skeleton h-2 flex-1"></div>
+                            <div class="skeleton h-2 flex-1"></div>
+                        </div>
+                    </div>
+                </div>
+            </div>
+
+            <!-- Progress Bar -->
+            <div class="glass card p-6">
+                <h3 class="text-xs font-bold uppercase opacity-50 mb-4" data-i18n="ui.progress">Progress Bar</h3>
+                <div class="flex items-center gap-4 mb-3">
+                    <div class="progress-track flex-1">
+                        <div class="progress-fill" id="demo-progress" style="width: 0%;"></div>
+                    </div>
+                    <span class="num text-xs font-bold opacity-60" id="demo-progress-text">0%</span>
+                </div>
+                <button class="btn btn-secondary btn-sm" onclick="SigLabApp.runProgressDemo()">
+                    <i data-lucide="play" class="w-3 h-3"></i> Demo
+                </button>
+            </div>
+        </section>
+
+    </main>
+
+    <!-- ==================== TOAST CONTAINER ==================== -->
+    <div class="toast-container" id="toast-container"></div>
+
+    <!-- ==================== SCRIPTS ==================== -->
+    <script src="https://unpkg.com/lightweight-charts/dist/lightweight-charts.standalone.production.js"></script>
+    <script src="https://unpkg.com/lucide@latest/dist/umd/lucide.min.js"></script>
+    <script src="assets/js/siglab-data.js"></script>
+    <script src="assets/js/siglab-charts.js"></script>
+    <script src="assets/js/siglab-app.js"></script>
+</body>
+</html>

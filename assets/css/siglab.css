@@ -1,0 +1,516 @@
+/* ============================================================
+   SigLab Design System — siglab.css
+   Design tokens, animations, component styles
+   ============================================================ */
+
+/* ===== 1. Design Tokens (CSS Custom Properties) ===== */
+:root {
+    /* Spacing (4px grid) */
+    --space-1: 4px;
+    --space-2: 8px;
+    --space-3: 12px;
+    --space-4: 16px;
+    --space-6: 24px;
+    --space-8: 32px;
+    --space-12: 48px;
+    --space-16: 64px;
+
+    /* Border Radius */
+    --radius-card: 2.5rem;
+    --radius-btn: 9999px;
+    --radius-input: 0.75rem;
+    --radius-panel: 1.5rem;
+
+    /* Transitions */
+    --transition-theme: 0.4s cubic-bezier(0.4, 0, 0.2, 1);
+    --transition-hover: 0.15s ease;
+    --transition-expand: 0.3s ease-out;
+
+    /* z-index layers */
+    --z-base: 0;
+    --z-sticky: 10;
+    --z-dropdown: 100;
+    --z-overlay: 150;
+    --z-modal: 200;
+    --z-toast: 300;
+    --z-tooltip: 400;
+
+    /* Fonts */
+    --font-ui: 'IBM Plex Sans', sans-serif;
+    --font-mono: 'IBM Plex Mono', monospace;
+    --font-zh: 'IBM Plex Sans SC', sans-serif;
+    --font-ja: 'IBM Plex Sans JP', sans-serif;
+}
+
+/* ===== 2. Theme Variables ===== */
+.dark {
+    --bg: #0F172A;
+    --bg-surface: rgba(255, 255, 255, 0.03);
+    --text: #F8FAFC;
+    --text-sub: rgba(248, 250, 252, 0.4);
+    --brand: #38BDF8;
+    --brand-dim: rgba(56, 189, 248, 0.1);
+    --brand-border: rgba(56, 189, 248, 0.2);
+    --up: #10B981;
+    --down: #F43F5E;
+    --warning: #F59E0B;
+    --border: rgba(255, 255, 255, 0.1);
+    --border-strong: rgba(255, 255, 255, 0.15);
+    --card-shadow: none;
+    --hover-bg: rgba(255, 255, 255, 0.05);
+    --skeleton-from: rgba(255, 255, 255, 0.03);
+    --skeleton-to: rgba(255, 255, 255, 0.08);
+    --toast-bg: #1E293B;
+}
+
+.light {
+    --bg: #F2F0E9;
+    --bg-surface: #FFFFFF;
+    --text: #2D3748;
+    --text-sub: rgba(45, 55, 72, 0.5);
+    --brand: #0369A1;
+    --brand-dim: rgba(3, 105, 161, 0.08);
+    --brand-border: rgba(3, 105, 161, 0.2);
+    --up: #059669;
+    --down: #DC2626;
+    --warning: #D97706;
+    --border: rgba(0, 0, 0, 0.08);
+    --border-strong: rgba(0, 0, 0, 0.12);
+    --card-shadow: 0 1px 3px rgba(0,0,0,0.04), 0 10px 15px -3px rgba(0,0,0,0.05);
+    --hover-bg: rgba(0, 0, 0, 0.03);
+    --skeleton-from: rgba(0, 0, 0, 0.04);
+    --skeleton-to: rgba(0, 0, 0, 0.08);
+    --toast-bg: #FFFFFF;
+}
+
+/* ===== 3. Base Styles ===== */
+* { transition: background-color var(--transition-theme), color var(--transition-theme), border-color var(--transition-theme), box-shadow var(--transition-theme); }
+
+body {
+    background-color: var(--bg);
+    color: var(--text);
+    font-family: var(--font-ui);
+    overflow-x: hidden;
+    -webkit-font-smoothing: antialiased;
+    -moz-osx-font-smoothing: grayscale;
+}
+
+:lang(zh) { font-family: var(--font-zh); }
+:lang(ja) { font-family: var(--font-ja); }
+
+.num { font-family: var(--font-mono); }
+
+/* ===== 4. Component Classes ===== */
+
+/* --- Glass Card --- */
+.glass {
+    background-color: var(--bg-surface);
+    border: 1px solid var(--border);
+    box-shadow: var(--card-shadow);
+}
+
+.card { border-radius: var(--radius-card); }
+
+/* --- Color Utilities --- */
+.text-brand { color: var(--brand); }
+.text-up { color: var(--up); }
+.text-down { color: var(--down); }
+.text-warning { color: var(--warning); }
+.text-sub { color: var(--text-sub); }
+.bg-brand { background-color: var(--brand); }
+
+/* --- Section Heading --- */
+.section-heading {
+    font-size: 10px;
+    font-weight: 700;
+    text-transform: uppercase;
+    letter-spacing: 0.1em;
+    color: var(--brand);
+    margin-bottom: var(--space-8);
+    padding-bottom: var(--space-3);
+    border-bottom: 2px solid var(--brand);
+    display: inline-block;
+}
+
+/* --- Buttons --- */
+.btn {
+    display: inline-flex;
+    align-items: center;
+    justify-content: center;
+    gap: var(--space-2);
+    font-weight: 700;
+    font-size: 13px;
+    border-radius: var(--radius-btn);
+    cursor: pointer;
+    border: none;
+    transition: all var(--transition-hover);
+    white-space: nowrap;
+}
+.btn:active { transform: scale(0.97); }
+
+.btn-lg { padding: 10px 24px; font-size: 14px; }
+.btn-sm { padding: 6px 16px; font-size: 12px; }
+
+.btn-primary {
+    background-color: var(--brand);
+    color: #0F172A;
+}
+.btn-primary:hover { opacity: 0.85; }
+
+.btn-secondary {
+    background-color: transparent;
+    border: 1px solid var(--brand);
+    color: var(--brand);
+}
+.btn-secondary:hover { background-color: var(--brand-dim); }
+
+.btn-ghost {
+    background-color: transparent;
+    color: var(--text);
+}
+.btn-ghost:hover { background-color: var(--hover-bg); }
+
+.btn-danger {
+    background-color: var(--down);
+    color: #FFFFFF;
+}
+.btn-danger:hover { opacity: 0.85; }
+
+/* --- Form Controls --- */
+.input {
+    background-color: var(--bg-surface);
+    border: 1px solid var(--border);
+    border-radius: var(--radius-input);
+    padding: 8px 14px;
+    font-size: 13px;
+    color: var(--text);
+    font-family: var(--font-ui);
+    outline: none;
+    width: 100%;
+}
+.input:focus { border-color: var(--brand); box-shadow: 0 0 0 3px var(--brand-dim); }
+.input::placeholder { color: var(--text-sub); }
+
+.select {
+    background-color: var(--bg-surface);
+    border: 1px solid var(--border);
+    border-radius: var(--radius-input);
+    padding: 8px 14px;
+    font-size: 13px;
+    color: var(--text);
+    font-family: var(--font-ui);
+    outline: none;
+    cursor: pointer;
+    appearance: none;
+    background-image: url("data:image/svg+xml,%3Csvg xmlns='http://www.w3.org/2000/svg' width='12' height='12' viewBox='0 0 24 24' fill='none' stroke='%2394a3b8' stroke-width='2'%3E%3Cpolyline points='6 9 12 15 18 9'/%3E%3C/svg%3E");
+    background-repeat: no-repeat;
+    background-position: right 12px center;
+    padding-right: 36px;
+}
+.select:focus { border-color: var(--brand); }
+
+/* Toggle Switch */
+.toggle-track {
+    width: 40px;
+    height: 22px;
+    background-color: var(--border-strong);
+    border-radius: 11px;
+    position: relative;
+    cursor: pointer;
+    transition: background-color var(--transition-hover);
+}
+.toggle-track.active { background-color: var(--brand); }
+.toggle-thumb {
+    width: 18px;
+    height: 18px;
+    background-color: #FFFFFF;
+    border-radius: 50%;
+    position: absolute;
+    top: 2px;
+    left: 2px;
+    transition: transform var(--transition-hover);
+}
+.toggle-track.active .toggle-thumb { transform: translateX(18px); }
+
+/* Range Slider */
+.range-slider {
+    -webkit-appearance: none;
+    appearance: none;
+    width: 100%;
+    height: 4px;
+    background: var(--border);
+    border-radius: 2px;
+    outline: none;
+}
+.range-slider::-webkit-slider-thumb {
+    -webkit-appearance: none;
+    width: 16px;
+    height: 16px;
+    background: var(--brand);
+    border-radius: 50%;
+    cursor: pointer;
+}
+
+/* --- Toast Notifications --- */
+.toast-container {
+    position: fixed;
+    top: 80px;
+    right: 20px;
+    z-index: var(--z-toast);
+    display: flex;
+    flex-direction: column;
+    gap: var(--space-3);
+    pointer-events: none;
+}
+.toast {
+    background-color: var(--toast-bg);
+    border: 1px solid var(--border);
+    border-radius: var(--radius-panel);
+    padding: 14px 20px;
+    font-size: 13px;
+    display: flex;
+    align-items: center;
+    gap: var(--space-3);
+    min-width: 280px;
+    box-shadow: 0 10px 30px rgba(0,0,0,0.2);
+    pointer-events: auto;
+    animation: toast-enter 0.3s ease-out forwards;
+}
+.toast.exit { animation: toast-exit 0.3s ease-in forwards; }
+.toast-success { border-left: 3px solid var(--up); }
+.toast-error { border-left: 3px solid var(--down); }
+.toast-warning { border-left: 3px solid var(--warning); }
+.toast-info { border-left: 3px solid var(--brand); }
+
+/* --- Skeleton Loading --- */
+.skeleton {
+    background: linear-gradient(90deg, var(--skeleton-from) 25%, var(--skeleton-to) 50%, var(--skeleton-from) 75%);
+    background-size: 200% 100%;
+    animation: skeleton-pulse 1.5s ease-in-out infinite;
+    border-radius: var(--radius-input);
+}
+
+/* --- Progress Bar --- */
+.progress-track {
+    width: 100%;
+    height: 6px;
+    background-color: var(--border);
+    border-radius: 3px;
+    overflow: hidden;
+}
+.progress-fill {
+    height: 100%;
+    background-color: var(--brand);
+    border-radius: 3px;
+    transition: width 0.4s ease-out;
+}
+
+/* --- Heatmap Cell --- */
+.heatmap-cell {
+    aspect-ratio: 1.6;
+    border-radius: 4px;
+    display: flex;
+    align-items: center;
+    justify-content: center;
+    font-family: var(--font-mono);
+    font-size: 10px;
+    font-weight: 600;
+    transition: transform var(--transition-hover);
+}
+.heatmap-cell:hover { transform: scale(1.1); z-index: 1; }
+
+/* --- Strategy Flow Nodes --- */
+.flow-canvas {
+    position: relative;
+    min-height: 220px;
+    overflow: hidden;
+}
+.flow-node {
+    background-color: var(--bg-surface);
+    border: 1px solid var(--border);
+    border-radius: var(--radius-input);
+    padding: 14px 18px;
+    min-width: 160px;
+    position: relative;
+    z-index: 2;
+}
+.flow-node-header {
+    display: flex;
+    align-items: center;
+    gap: var(--space-2);
+    font-size: 11px;
+    font-weight: 700;
+    text-transform: uppercase;
+    opacity: 0.5;
+    margin-bottom: var(--space-2);
+}
+.flow-node-body {
+    font-family: var(--font-mono);
+    font-size: 13px;
+    font-weight: 600;
+}
+.flow-node-data { border-color: var(--brand); border-width: 2px; }
+.flow-node-indicator { border-color: var(--warning); border-width: 2px; }
+.flow-node-condition { border-color: #A78BFA; border-width: 2px; }
+.flow-node-action { border-color: var(--up); border-width: 2px; }
+
+.flow-svg {
+    position: absolute;
+    inset: 0;
+    z-index: 1;
+    pointer-events: none;
+}
+.flow-line {
+    stroke: var(--border-strong);
+    stroke-width: 2;
+    stroke-dasharray: 8 4;
+    fill: none;
+    animation: dash-flow 1s linear infinite;
+}
+
+/* --- AI Chat --- */
+.ai-msg-user {
+    background-color: var(--brand-dim);
+    border: 1px solid var(--brand-border);
+    border-radius: 16px 16px 4px 16px;
+}
+.ai-msg-bot {
+    background-color: var(--bg-surface);
+    border: 1px solid var(--border);
+    border-radius: 16px 16px 16px 4px;
+}
+.typing-cursor {
+    display: inline-block;
+    animation: typing-cursor 0.8s step-end infinite;
+    color: var(--brand);
+    font-weight: 700;
+}
+
+/* --- Badge --- */
+.badge-item {
+    text-align: center;
+    width: 80px;
+}
+.badge-icon {
+    width: 56px;
+    height: 56px;
+    margin: 0 auto var(--space-2);
+    border-radius: 50%;
+    background-color: var(--brand-dim);
+    border: 2px solid var(--brand-border);
+    display: flex;
+    align-items: center;
+    justify-content: center;
+    transition: transform var(--transition-hover), box-shadow var(--transition-hover);
+}
+.badge-icon:hover { transform: scale(1.1); box-shadow: 0 0 20px var(--brand-dim); }
+
+/* --- Market Card --- */
+.market-card {
+    transition: transform var(--transition-hover), box-shadow var(--transition-hover);
+}
+.market-card:hover { transform: translateY(-2px); }
+
+/* --- Price Flash --- */
+.flash-up { animation: price-flash-up 0.6s ease-out; }
+.flash-down { animation: price-flash-down 0.6s ease-out; }
+
+/* --- Table --- */
+.data-table { width: 100%; border-collapse: collapse; }
+.data-table thead th {
+    font-size: 10px;
+    font-weight: 700;
+    text-transform: uppercase;
+    opacity: 0.4;
+    text-align: left;
+    padding: 8px 12px;
+    border-bottom: 1px solid var(--border);
+}
+.data-table tbody td {
+    padding: 10px 12px;
+    font-size: 13px;
+    border-bottom: 1px solid var(--border);
+}
+.data-table tbody tr:hover { background-color: var(--hover-bg); }
+
+/* --- Ticker Bar --- */
+.ticker-bar {
+    display: flex;
+    border-bottom: 1px solid var(--border);
+    overflow: hidden;
+    white-space: nowrap;
+    padding: 10px 0;
+}
+.ticker-content {
+    display: flex;
+    gap: 48px;
+    animation: marquee 40s linear infinite;
+    align-items: center;
+    padding: 0 16px;
+}
+
+/* ===== 5. Keyframe Animations ===== */
+@keyframes skeleton-pulse {
+    0% { background-position: 200% 0; }
+    100% { background-position: -200% 0; }
+}
+
+@keyframes price-flash-up {
+    0% { background-color: rgba(16, 185, 129, 0.2); }
+    100% { background-color: transparent; }
+}
+
+@keyframes price-flash-down {
+    0% { background-color: rgba(244, 63, 94, 0.2); }
+    100% { background-color: transparent; }
+}
+
+@keyframes marquee {
+    0% { transform: translateX(0); }
+    100% { transform: translateX(-50%); }
+}
+
+@keyframes typing-cursor {
+    0%, 100% { opacity: 1; }
+    50% { opacity: 0; }
+}
+
+@keyframes dash-flow {
+    0% { stroke-dashoffset: 24; }
+    100% { stroke-dashoffset: 0; }
+}
+
+@keyframes toast-enter {
+    0% { transform: translateX(100%); opacity: 0; }
+    100% { transform: translateX(0); opacity: 1; }
+}
+
+@keyframes toast-exit {
+    0% { transform: translateX(0); opacity: 1; }
+    100% { transform: translateX(100%); opacity: 0; }
+}
+
+@keyframes fade-slide-in {
+    0% { opacity: 0; transform: translateY(10px); }
+    100% { opacity: 1; transform: translateY(0); }
+}
+
+@keyframes progress-fill {
+    0% { width: 0%; }
+}
+
+/* ===== 6. Reduced Motion ===== */
+@media (prefers-reduced-motion: reduce) {
+    *, *::before, *::after {
+        animation-duration: 0.01ms !important;
+        animation-iteration-count: 1 !important;
+        transition-duration: 0.01ms !important;
+    }
+}
+
+/* ===== 7. Responsive ===== */
+@media (max-width: 767px) {
+    .flow-canvas { min-height: auto; }
+    .flow-node { min-width: 120px; }
+    .toast { min-width: 240px; font-size: 12px; }
+}
