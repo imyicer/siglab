@@ -6,31 +6,31 @@
 
 ```
 ┌─────────────────────────────────────────────────────────┐
-│                    Frontend (React)                      │
-│  React Flow (画布) + TradingView Charts + AI Chat UI     │
+│                    Frontend (React)                     │
+│  React Flow (画布) + TradingView Charts + AI Chat UI    │
 └──────────────┬──────────────────────┬───────────────────┘
                │ REST API             │ WebSocket
 ┌──────────────▼──────────────────────▼───────────────────┐
-│                  Backend API (NestJS)                     │
-│  用户管理 │ 策略管理 │ 行情API │ 回测调度 │ AI代理        │
+│                  Backend API (NestJS)                   │
+│  用户管理 │ 策略管理 │ 行情API │ 回测调度 │ AI代理         │
 └─────┬────────────┬──────────────┬───────────────────────┘
       │            │              │
       ▼            ▼              ▼
 ┌──────────┐ ┌──────────┐ ┌──────────────────────┐
-│PostgreSQL│ │  Redis   │ │   BullMQ 任务队列    │
+│  MySQL   │ │  Redis   │ │   Kafka 任务队列     │
 │ (用户/   │ │ (缓存/   │ │                      │
 │  策略)   │ │  行情)   │ └──────────┬───────────┘
 └──────────┘ └──────────┘            │
                                      ▼
                           ┌──────────────────────┐
-                          │  LEAN Engine Worker   │
-                          │  (Docker Container)   │
-                          │  C#/.NET + Python     │
+                          │  LEAN Engine Worker  │
+                          │  (Docker Container)  │
+                          │  C#/.NET + Python    │
                           └──────────┬───────────┘
                                      │
                                      ▼
                           ┌──────────────────────┐
-                          │   TimescaleDB        │
+                          │   MangoDB            │
                           │ (5年历史行情数据)     │
                           └──────────────────────┘
 ```
