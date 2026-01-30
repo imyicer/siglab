@@ -60,6 +60,7 @@
     --hover-bg: rgba(255, 255, 255, 0.05);
     --skeleton-from: rgba(255, 255, 255, 0.03);
     --skeleton-to: rgba(255, 255, 255, 0.08);
+    --brand-contrast: #0F172A;
     --toast-bg: #1E293B;
 }
 
@@ -80,6 +81,7 @@
     --hover-bg: rgba(0, 0, 0, 0.03);
     --skeleton-from: rgba(0, 0, 0, 0.04);
     --skeleton-to: rgba(0, 0, 0, 0.08);
+    --brand-contrast: #FFFFFF;
     --toast-bg: #FFFFFF;
 }
 
@@ -121,10 +123,9 @@ body {
 
 /* --- Section Heading --- */
 .section-heading {
-    font-size: 10px;
+    font-size: 1.5rem;
     font-weight: 700;
-    text-transform: uppercase;
-    letter-spacing: 0.1em;
+    letter-spacing: -0.01em;
     color: var(--brand);
     margin-bottom: var(--space-8);
     padding-bottom: var(--space-3);
@@ -153,7 +154,7 @@ body {
 
 .btn-primary {
     background-color: var(--brand);
-    color: #0F172A;
+    color: var(--brand-contrast);
 }
 .btn-primary:hover { opacity: 0.85; }
 
@@ -317,7 +318,7 @@ body {
     font-weight: 600;
     transition: transform var(--transition-hover);
 }
-.heatmap-cell:hover { transform: scale(1.1); z-index: 1; }
+.heatmap-cell:hover { box-shadow: inset 0 0 0 2px var(--brand); z-index: 1; }
 
 /* --- Strategy Flow Nodes --- */
 .flow-canvas {

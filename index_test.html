@@ -15,15 +15,15 @@
         <div class="flex items-center gap-6">
             <span class="text-2xl font-bold tracking-tighter">Sig<span class="text-brand">Lab</span></span>
             <div class="flex p-1 rounded-lg" style="background: var(--hover-bg);">
-                <button onclick="SigLabApp.setLang('en')" class="px-3 py-1 text-[10px] font-bold hover:text-brand transition-colors">EN</button>
-                <button onclick="SigLabApp.setLang('zh')" class="px-3 py-1 text-[10px] font-bold hover:text-brand transition-colors">中</button>
-                <button onclick="SigLabApp.setLang('es')" class="px-3 py-1 text-[10px] font-bold hover:text-brand transition-colors">ES</button>
-                <button onclick="SigLabApp.setLang('ja')" class="px-3 py-1 text-[10px] font-bold hover:text-brand transition-colors">日</button>
+                <button onclick="SigLabApp.setLang('en')" class="px-3 py-1.5 text-sm font-bold hover:text-brand transition-colors">EN</button>
+                <button onclick="SigLabApp.setLang('zh')" class="px-3 py-1.5 text-sm font-bold hover:text-brand transition-colors">中</button>
+                <button onclick="SigLabApp.setLang('es')" class="px-3 py-1.5 text-sm font-bold hover:text-brand transition-colors">ES</button>
+                <button onclick="SigLabApp.setLang('ja')" class="px-3 py-1.5 text-sm font-bold hover:text-brand transition-colors">日</button>
             </div>
         </div>
         <div class="flex items-center gap-3">
-            <button onclick="SigLabApp.toggleTheme()" class="btn btn-ghost btn-sm glass">
-                <i data-lucide="sun-moon" class="w-4 h-4"></i>
+            <button onclick="SigLabApp.toggleTheme()" class="btn btn-ghost btn-lg glass">
+                <i data-lucide="sun-moon" class="w-5 h-5"></i>
                 <span data-i18n="nav.theme">Theme</span>
             </button>
             <button class="btn btn-primary btn-lg" data-i18n="nav.start">Get Started</button>
@@ -105,10 +105,8 @@
             <!-- Monthly Returns Heatmap -->
             <div class="glass card p-6 mb-6">
                 <h3 class="text-xs font-bold uppercase opacity-50 mb-4" data-i18n="bt.heatmap">Monthly Returns</h3>
-                <div class="overflow-x-auto">
-                    <div id="heatmap-grid" class="min-w-[640px]">
-                        <!-- Populated by JS -->
-                    </div>
+                <div id="heatmap-grid" class="min-w-[640px]">
+                    <!-- Populated by JS -->
                 </div>
             </div>
 
@@ -363,7 +361,7 @@
                     <button class="btn btn-sm" style="background: var(--warning); color: #fff;" onclick="SigLabApp.showToast('warning', 'Data gap detected in XAU/USD.')">
                         <i data-lucide="alert-triangle" class="w-4 h-4"></i> Warning
                     </button>
-                    <button class="btn btn-sm" style="background: var(--brand); color: #0F172A;" onclick="SigLabApp.showToast('info', 'New strategy template available.')">
+                    <button class="btn btn-sm" style="background: var(--brand); color: #fff;" onclick="SigLabApp.showToast('info', 'New strategy template available.')">
                         <i data-lucide="info" class="w-4 h-4"></i> Info
                     </button>
                 </div>
